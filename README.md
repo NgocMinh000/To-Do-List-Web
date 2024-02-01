@@ -15,22 +15,25 @@
 - Visual Studio Code (VS Code)
 - Tiện ích Live Preview trong VS Code
 - Node.js
+- MongoDB
 
 ### Cài Đặt
 1. Tải về và cài đặt **Visual Studio Code** từ [trang chủ](https://code.visualstudio.com/).
 2. Mở VS Code, truy cập vào **Extensions** và tìm kiếm, sau đó cài đặt tiện ích **Live Preview**.
 3. Tải về và cài đặt **Node.js** từ [trang chủ](https://nodejs.org/).
-
+4. Tải về và cài đặt **MongoDB** từ [trang chủ](https://www.mongodb.com/try/download/community-edition)
+ 
 ### Cấu Hình và Chạy Dự Án
 1. Clone hoặc tải xuống dự án từ repository.
-2. Mở terminal, chuyển đến thư mục `backend` của dự án: 
+2. Connect MongoDB với máy tính của bạn.
+3. Mở terminal, chuyển đến thư mục `backend` của dự án: 
 cd path/to/your/backend
-3. Khởi tạo dự án và cài đặt các dependencies:
+4. Khởi tạo dự án và cài đặt các dependencies:
 npm init
 npm install
-4. Chạy server sử dụng `nodemon`:
+5. Chạy server sử dụng `nodemon`:
 nodemon app.js
-5. Mở **Live Preview** trong VS Code để chạy frontend.
+6. Mở **Live Preview** trong VS Code để chạy frontend.
 
 ## Cách Đóng Góp
 Chúng tôi hoan nghênh mọi sự đóng góp từ cộng đồng! Nếu bạn muốn cải thiện hoặc thêm tính năng mới vào "To Do List", vui lòng thực hiện pull request hoặc mở một issue mới trên trang GitHub của dự án.
