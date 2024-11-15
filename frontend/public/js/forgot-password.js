@@ -9,7 +9,6 @@ document.getElementById('forgot-password-form').addEventListener('submit', async
   }
 
   try {
-    // Gửi yêu cầu API đến backend với email mà người dùng nhập
     const response = await fetch('http://localhost:3001/api/auth/forgot-password', {
       method: 'POST',
       headers: {
