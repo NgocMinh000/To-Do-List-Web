@@ -27,8 +27,10 @@ dotenv.config();
 
 const app = express();
 
+
 // Cấu hình CORS
 app.use(cors());
+
 
 // Middleware để parse body của request
 app.use(express.json());

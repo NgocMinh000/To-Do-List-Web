@@ -6,24 +6,27 @@ import User from '../models/userModel.js';
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
+  console.log('Request received at /forgot-password:', req.body);
+
   if (!email) {
     return res.status(400).json({ success: false, message: 'Email is required.' });
   }
 
   try {
     const user = await User.findOne({ email });
-    console.log(user);
+    console.log('User found:', user);
     if (!user) {
       return res.status(401).json({ success: false, message: 'User not found.' });
     }
     if (!user.isActive) {
+      console.log('User is not active:', user);
       return res.status(401).json({ success: false, message: 'User not active.' });
     }
 
     // Tạo token đặt lại mật khẩu
     const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    const resetLink = `http://127.0.0.1:${process.env.PORT}/api/auth/verify-reset-password/${resetToken}`;
-
+     const resetLink = `${process.env.BASE_URL}/api/auth/verify-reset-password/${resetToken}`;
+    
     // Lưu token vào cơ sở dữ liệu
     user.resetToken = resetToken;
     user.tokenExpiry = Date.now() + 3600000; // 1 giờ

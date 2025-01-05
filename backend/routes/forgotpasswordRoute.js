@@ -7,11 +7,9 @@ import path from 'path';
 import { fileURLToPath } from 'url'; 
 import fs from 'fs'; // Để đọc file HTML
 
-const router = express.Router();
+// 
 
-// Lấy giá trị __dirname trong ES Module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const router = express.Router();
 
 // Định nghĩa route cho yêu cầu quên mật khẩu
 router.post('/forgot-password', (req, res) => {
@@ -25,7 +23,7 @@ router.post('/reset-password', (req, res) => {
   resetPassword(req, res);
 });
 
-// Route xác minh token và trả về trang HTML đặt lại mật khẩu
+// Route xác minh token và chuyển hướng đến Firebase URL
 router.get('/verify-reset-password/:token', async (req, res) => {
   const { token } = req.params;
   console.log('Received token:', token);
@@ -38,14 +36,9 @@ router.get('/verify-reset-password/:token', async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found.' });
     }
 
-    // Token hợp lệ, trả về trang HTML
-    const resetHtmlPath = path.resolve(__dirname, '../../frontend/public/views/reset.html');
-    console.log("Path to reset.html:", resetHtmlPath);
-   // Đọc nội dung của file HTML và chèn token vào
-   const htmlContent = fs.readFileSync(resetHtmlPath, 'utf-8');
-   const modifiedHtml = htmlContent.replace('{{token}}', token); // Chèn token vào trong placeholder
-
-   res.send(modifiedHtml); // Trả về trang HTML đã chỉnh sửa
+    // Token hợp lệ, chuyển hướng đến URL của Firebase
+    const firebaseUrl = `https://baocaonhom33.web.app/views/reset.html?token=${token}`;
+    res.redirect(firebaseUrl); // Chuyển hướng người dùng đến Firebase
   } catch (error) {
     console.error('Error verifying token:', error);
     res.status(400).send('Invalid or expired token.');

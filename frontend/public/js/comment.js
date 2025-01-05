@@ -6,10 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadComments() {
     try {
       const userID = localStorage.getItem("userID"); // Lấy userID từ localStorage
-      const response = await fetch(`http://localhost:3001/api/comments/getAllComments/${userID}`); // API endpoint
+      console.log("User ID:", userID); // Kiểm tra userID từ localStorage
+      
+      const response = await fetch(`https://backend-86dc.onrender.com/api/comments/getAllComments/${userID}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
       const comments = await response.json();
       console.log("Fetched comments:", comments); // Kiểm tra dữ liệu từ API
-      // Kiểm tra nếu dữ liệu trả về là mảng
+  
       if (Array.isArray(comments)) {
         displayComments(comments);
       } else {
@@ -57,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hàm xóa comment
   async function deleteComment(commentId) {
     try {
-      const response = await fetch(`http://localhost:3001/api/comments/deleteComment/${commentId}`, {
+      const response = await fetch(`https://backend-86dc.onrender.com/api/comments/deleteComment/${commentId}`, {
         method: "DELETE",
       });
   

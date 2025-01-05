@@ -25,6 +25,7 @@ export const checkSignUp = async (req, res) => {
       email,
       password,
       personalInfo: "none",
+      isActive: true,
     });
 
     // Lưu user vào database

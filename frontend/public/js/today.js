@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', fetchDataFromServer);
 async function fetchDataFromServer() {
   try {
     const userID = localStorage.getItem('userID');
-    const response = await fetch(`http://localhost:3001/api/today/getToday/${userID}`);
+    const response = await fetch(`https://backend-86dc.onrender.com/api/today/getToday/${userID}`);
     tasks = await response.json();
 
     tasks = Array.isArray(tasks) ? tasks : [tasks];
@@ -126,6 +126,7 @@ function createAttachmentForm(task) {
     const selectedFile = fileInput?.files[0];
     if (selectedFile) {
       handleFileUpload(selectedFile, task);
+      closeModal(`attachmentModal${task._id}`);
     } else {
       console.log("No file selected");
     }
@@ -136,7 +137,7 @@ function createAttachmentForm(task) {
 
 async function updateTaskStatus(taskId, updatedData) {
   try {
-    const response = await fetch(`http://localhost:3001/api/tasks/update/${taskId}`, {
+    const response = await fetch(`https://backend-86dc.onrender.com/api/tasks/update/${taskId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedData),

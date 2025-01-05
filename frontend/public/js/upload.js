@@ -19,7 +19,7 @@ export async function handleFileUpload(file, task) {
         console.error('UserID not found in localStorage');
         return;
       }
-      const response = await fetch('http://localhost:3001/api/uploadfile/uploadfile', {
+      const response = await fetch('https://backend-86dc.onrender.com/api/uploadfile/uploadfile', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${userID}`,
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Hàm lấy danh sách file từ server
 async function fetchUploadedFiles() {
   try {
-    const response = await fetch('http://localhost:3001/api/uploadfile/getfiles');
+    const response = await fetch('https://backend-86dc.onrender.com/api/uploadfile/getfiles');
     const data = await response.json();
 
     if (data.success) {
@@ -134,85 +134,10 @@ function renderUploadedFiles(files) {
      
       </td>
     `;
-    // <button onclick="downloadFile('${file.attachments[0].filePath}')">Download</button>
     tbody.appendChild(row);
   });
 
   table.appendChild(tbody);
   fileContainer.appendChild(table);
 }
-
-// Hàm tải file
-// function downloadFile(filePath) {
-//   if (!filePath) {
-//     console.error('File path is invalid.');
-//     return;
-//   }
-
-//   // Kiểm tra nếu đường dẫn tệp có hợp lệ
-//   const link = document.createElement('a');
-//   link.href = filePath;
-  
-//   // Kiểm tra nếu đường dẫn tệp có tồn tại (nếu là URL)
-//   fetch(filePath, { method: 'HEAD' })
-//     .then(response => {
-//       if (response.ok) {
-//         // Tạo sự kiện click tự động
-//         link.download = filePath.split('/').pop();
-//         link.click();
-//       } else {
-//         console.error('File not found');
-//       }
-//     })
-//     .catch(error => {
-//       console.error('Error while checking file existence:', error);
-//     });
-// }
-
-// document.addEventListener('DOMContentLoaded', () => {
-// console.log('DOM fully loaded');
-// fetchUploadedFiles();
-// });
-// // Hàm lấy danh sách file từ server
-// async function fetchUploadedFiles() {
-// try {
-//   const response = await fetch('http://localhost:3001/api/uploadfile/getfiles');
-//   const data = await response.json();
-
-//   if (data.success) {
-//     renderUploadedFiles(data.files);
-//   } else {
-//     console.error('Error fetching uploaded files:', data.message);
-//   }
-// } catch (error) {
-//   console.error('Error fetching files:', error);
-// }
-// }
-
-// // Hàm hiển thị danh sách file đã tải lên
-// function renderUploadedFiles(files) {
-// const fileContainer = document.getElementById('fileContainer');
-// if (!fileContainer) {
-//   console.error('Error: fileContainer not found in the DOM');
-//   return;
-// }
-// fileContainer.innerHTML = '';
-
-// if (files.length === 0) {
-//   fileContainer.innerHTML = '<p>No files uploaded yet.</p>';
-//   return;
-// }
-
-// files.forEach(file => {
-//   const fileDiv = document.createElement('div');
-//   fileDiv.classList.add('file-item');
-//   fileDiv.innerHTML = `
-//     <p><strong>Title:</strong> ${file.title}</p>
-//     <p><strong>File Name:</strong> ${file.attachments[0].fileName}</p>
-//     <p><strong>Path:</strong> ${file.attachments[0].filePath}</p>
-//   `;
-//   fileContainer.appendChild(fileDiv);
-// });
-// }
-
 

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Password</title>
   <style>
-    /* Đặt font và thiết lập cơ bản */
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
@@ -17,7 +16,6 @@
       height: 100vh;
     }
 
-    /* Container chính */
     div {
       background-color: #ffffff;
       border-radius: 8px;
@@ -28,21 +26,18 @@
       box-sizing: border-box;
     }
 
-    /* Tiêu đề */
     h2 {
       text-align: center;
       color: #333;
       margin-bottom: 20px;
     }
 
-    /* Tin nhắn */
     #message {
       color: #28a745;
       font-size: 14px;
       text-align: center;
     }
 
-    /* Lỗi */
     #error {
       color: red;
       font-size: 14px;
@@ -50,7 +45,6 @@
       margin-bottom: 15px;
     }
 
-    /* Form và các input */
     form {
       display: flex;
       flex-direction: column;
@@ -75,7 +69,6 @@
       outline: none;
     }
 
-    /* Button */
     button {
       background-color: #007bff;
       color: #fff;
@@ -89,15 +82,19 @@
     button:hover {
       background-color: #0056b3;
     }
+
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
   <div>
     <h2>Reset Your Password</h2>
     <p id="message"></p>
-    <p id="error" class="error"></p>
+    <p id="error"></p>
     <form id="reset-password-form">
-      <input type="hidden" id="token" value="{{token}}" />
       <div>
         <label for="new-password">New Password</label>
         <input type="password" id="new-password" required />
@@ -106,14 +103,19 @@
         <label for="confirm-password">Confirm Password</label>
         <input type="password" id="confirm-password" required />
       </div>
-      <button type="submit">Reset Password</button>
+      <button type="submit" id="submit-button">Reset Password</button>
     </form>
   </div>
 
   <script>
-    // Lấy token từ trường hidden input
-    const token = document.getElementById('token').value;
-    console.log('Token from hidden input:', token); // Kiểm tra token trong console
+    // Lấy token từ URL query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (!token) {
+      document.getElementById('error').textContent = 'Invalid or missing token!';
+      document.getElementById('reset-password-form').style.display = 'none';
+    }
 
     document.getElementById('reset-password-form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -126,8 +128,12 @@
         return;
       }
 
+      document.getElementById('submit-button').disabled = true;
+      document.getElementById('error').textContent = '';
+      document.getElementById('message').textContent = '';
+
       try {
-        const response = await fetch('/api/auth/reset-password', {
+        const response = await fetch('https://backend-86dc.onrender.com/api/auth/reset-password', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token, newPassword }),
@@ -136,12 +142,14 @@
         const result = await response.json();
         if (result.success) {
           document.getElementById('message').textContent = 'Password reset successfully!';
-          document.getElementById('error').textContent = '';
         } else {
-          document.getElementById('error').textContent = result.message;
+          document.getElementById('error').textContent = result.message || 'Failed to reset password.';
         }
       } catch (error) {
         document.getElementById('error').textContent = 'An error occurred. Please try again.';
+        console.error('Error:', error);
+      } finally {
+        document.getElementById('submit-button').disabled = false;
       }
     });
   </script>

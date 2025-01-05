@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Lấy token từ trường hidden input
   const token = document.getElementById('token').value;
-  console.log('Token from hidden input:', token); // Kiểm tra token trong console
+  console.log('Token from hidden input:', token); 
 
   document.getElementById('reset-password-form').addEventListener('submit', async (e) => {
     e.preventDefault();

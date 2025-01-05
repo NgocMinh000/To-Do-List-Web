@@ -6,7 +6,7 @@ async function checkOverdueTasks() {
   try {
       const userID = localStorage.getItem('userID'); 
 
-      const response = await fetch(`http://localhost:3001/api/tasks/getTask/${userID}`);
+      const response = await fetch(`https://backend-86dc.onrender.com/api/tasks/getTask/${userID}`);
       const tasks = await response.json();
 
       // Kiểm tra xem dữ liệu có hợp lệ không
@@ -38,7 +38,7 @@ async function checkOverdueTasks() {
 
       overdueTasks.forEach(task => {
           const taskDiv = document.createElement('div');
-          taskDiv.classList.add('task', 'overdue');  // Thêm class "overdue"
+          taskDiv.classList.add('task', 'overdue'); 
 
           taskDiv.innerHTML = `
               <strong>${task.title}</strong><br>

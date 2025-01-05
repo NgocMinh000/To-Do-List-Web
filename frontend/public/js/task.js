@@ -20,7 +20,7 @@ async function fetchDataFromServer() {
   try {
     const userID = localStorage.getItem('userID');
 
-    const response = await fetch(`http://localhost:3001/api/tasks/getTask/${userID}`);
+    const response = await fetch(`https://backend-86dc.onrender.com/api/tasks/getTask/${userID}`);
     const responseData = await response.json();
 
     // Kiểm tra xem responseData có phải là mảng hay không
@@ -184,7 +184,7 @@ function createModal(modalId, modalTitle, task) {
       updateTask(task._id, updatedData);
       closeModal(modalId);
       location.reload();
-      // Tạo một thông báo đơn giản
+  
       alert(`Task ${updatedData.title} updated successfully.`);
 
       }
@@ -269,7 +269,7 @@ function closeModal(modalId) {
 }
 
 function updateTask(id, updatedData) {
-  fetch(`http://localhost:3001/api/tasks/update/${id}`, {
+  fetch(`https://backend-86dc.onrender.com/api/tasks/update/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ function updateTask(id, updatedData) {
 }
 
 function deleteTask(id) {
-  fetch(`http://localhost:3001/api/tasks/delete/${id}`, {
+  fetch(`https://backend-86dc.onrender.com/api/tasks/delete/${id}`, {
     method: 'DELETE',
   })
   .then(response => response.json())
@@ -325,7 +325,7 @@ function createTask() {
     };
   
   // Gửi yêu cầu POST tới máy chủ
-  fetch(`http://localhost:3001/api/tasks/create`, {
+  fetch(`https://backend-86dc.onrender.com/api/tasks/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
