@@ -1,14 +1,9 @@
 import mongoose from 'mongoose';
 
 const dbConfig = {
-    connectionString: 'mongodb+srv://vuducluong12a:123@cluster0.kznsm.mongodb.net', // Địa chỉ MongoDB Atlas của bạn
-    dbName: 'database', // Tên cơ sở dữ liệu bạn muốn kết nối
+    connectionString: 'mongodb+srv://vuducluong12a:123@cluster0.kznsm.mongodb.net', 
+    dbName: 'database',
 };
-
-// const dbConfig = {
-//     connectionString: 'mongodb://localhost:27017',
-//     dbName: 'ToDoListDB',
-// }; 
 
 const connectToMongoDB = async () => {
     try {
