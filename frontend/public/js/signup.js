@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         // Gửi yêu cầu POST đến endpoint /api/signup/check trên máy chủ
-        const response = await fetch('http://localhost:3001/api/signup/add', {
+        const response = await fetch('https://backend-86dc.onrender.com/api/signup/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

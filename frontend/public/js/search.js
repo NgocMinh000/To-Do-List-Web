@@ -9,7 +9,7 @@ async function fetchDataFromServer() {
     const userID = localStorage.getItem('userID');
     var search_Input = document.getElementById('searchInput').value;
 
-    const response = await fetch(`http://localhost:3001/api/search/searchTask/${userID}/${search_Input}`);
+    const response = await fetch(`https://backend-86dc.onrender.com/api/search/searchTask/${userID}/${search_Input}`);
     const responseData = await response.json();
 
     // Kiểm tra xem responseData có phải là mảng hay không

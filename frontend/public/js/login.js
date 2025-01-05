@@ -18,7 +18,7 @@ document.getElementById('login-button').addEventListener('click', async (event) 
 
     try {
         // Gửi yêu cầu fetch đến server
-        const response = await fetch('http://localhost:3001/api/login/check', {
+        const response = await fetch('https://backend-86dc.onrender.com/api/login/check', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

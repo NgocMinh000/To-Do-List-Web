@@ -27,7 +27,7 @@ async function fetchDataFromServer() {
     }
 
     // Gửi yêu cầu GET để lấy thông tin người dùng từ máy chủ
-    const response = await fetch(`http://localhost:3001/api/home/info/${userID}`, {
+    const response = await fetch(`https://backend-86dc.onrender.com/api/home/info/${userID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ function updateUserInfo(info) {
 
     const data = {
       name: username,
-      // email: email,
+      email: email,
       personalInfo: personalInfo
     };
     console.log(data);
@@ -116,7 +116,7 @@ function updateUserInfo(info) {
 
   // Send a PATCH request to the server
 function changeInfo(id, info) {
-  fetch(`http://localhost:3000/api/home/changeInfo/${id}`, {
+  fetch(`https://backend-86dc.onrender.com/api/home/changeInfo/${id}`, {
 
     method: 'PATCH',
     headers: {

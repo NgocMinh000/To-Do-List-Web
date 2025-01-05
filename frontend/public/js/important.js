@@ -13,7 +13,7 @@ async function fetchDataFromServer() {
   try {
     const userID = localStorage.getItem('userID');
 
-    const response = await fetch(`http://localhost:3001/api/important/getImportant/${userID}`);
+    const response = await fetch(`https://backend-86dc.onrender.com/api/important/getImportant/${userID}`);
     const responseData = await response.json();
 
     // Kiểm tra xem responseData có phải là mảng hay không

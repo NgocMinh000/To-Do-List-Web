@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchDataFromServer() {
   try {
     const userID = localStorage.getItem('userID');
-    const response = await fetch(`http://localhost:3001/api/completed/getCompleted/${userID}`);
+    const response = await fetch(`https://backend-86dc.onrender.com/api/completed/getCompleted/${userID}`);
     const responseData = await response.json();
 
     if (!Array.isArray(responseData) && typeof responseData !== 'object') {
@@ -166,34 +166,17 @@ function closeModal(modalId) {
 }
 
 // Hàm mở form comment
-async function openCommentForm(task) {
+function openCommentForm(task) {
   const taskContainer = document.getElementById('taskContainer');
   const taskId = task.task_id;
 
-  try {
-    const response = await fetch(`http://localhost:3001/api/comments/getAllComments/${taskId}`);
-    const comments = await response.json();
-    
-    const commentModal = createCommentModal(taskId);
-    taskContainer.appendChild(commentModal);
+  const commentModal = createCommentModal(taskId);
+  taskContainer.appendChild(commentModal);
 
-    openModal('commentModal' + taskId);
-
-    // Hiển thị các comment hiện có
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comments');
-    comments.forEach(comment => {
-      const commentElement = document.createElement('div');
-      commentElement.classList.add('comment');
-      commentElement.innerHTML = `<strong>${comment.userId}</strong>: ${comment.comment}`;
-      commentDiv.appendChild(commentElement);
-    });
-    commentModal.querySelector('.modal-content').appendChild(commentDiv);
-  } catch (error) {
-    console.error('Error fetching comments:', error);
-  }
+  openModal('commentModal' + taskId);
 }
 
+// Hàm tạo modal để thêm comment
 function createCommentModal(taskId) {
   const commentModal = document.createElement('div');
   commentModal.classList.add('modal');
@@ -235,7 +218,7 @@ async function saveComment(taskId, comment) {
       return;
     }
 
-    const response = await fetch('http://localhost:3001/api/comments/addComment/' + userId, {
+    const response = await fetch(`https://backend-86dc.onrender.com/api/comments/addComment/${userId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ taskId, comment }),
@@ -255,6 +238,7 @@ async function saveComment(taskId, comment) {
   }
 }
 
+// Cập nhật comment trong DOM
 function updateCommentInDOM(taskId, comment, userName) {
   const taskDiv = document.querySelector(`#taskContainer .task[data-task-id='${taskId}'] .comments`);
   if (taskDiv) {
